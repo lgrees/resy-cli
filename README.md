@@ -95,8 +95,9 @@ You'll be prompted to add an api key and an auth token. Follow these steps to fi
 6. View the request headers
 
 At this point, you should see something that looks like the following:
+![Screen Shot 2022-11-08 at 6 33 31 PM](https://user-images.githubusercontent.com/10553910/200699901-91cf5e43-bcd7-4a49-bdba-40e54e8bce54.png)
 
-The information highlighted in red is what you are looking for.
+The obfuscated values associated with the keys highlighted in red are what you are looking for.
 
 To verify that this setup was successful, run:
 

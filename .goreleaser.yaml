@@ -1,0 +1,33 @@
+project_name: resy
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+checksum:
+  name_template: 'checksums.txt'
+universal_binaries:
+  - replace: true
+snapshot:
+  name_template: '{{ incpatch .Version }}-next'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+brews:
+  - name: resy
+    description: A CLI to easily schedule restaurant reservations in advance.
+    homepage: https://github.com/lgrees/resy-cli
+    tap:
+      owner: lgrees
+      name: homebrew-lgrees
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json

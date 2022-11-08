@@ -35,6 +35,10 @@ After too many instances of losing to people who could click faster than me (or 
 
 If you are using a Mac computer, this [quick introduction]() to using the MacOS default terminal emulator (Terminal) should give you a good foundation to set up `resy-cli` on your computer.
 
+### Homebrew Installation <!-- omit in toc -->
+
+`resy-cli` uses the [Homebrew package manager](https://brew.sh/) for distribution on MacOS and Linux operating systems. Follow installation instructions from their homepage to install.
+
 ### `at` Permissions <!-- omit in toc -->
 
 Under the hood, `resy-cli` uses another command-line interface called `at` to schedule reservations to book in the future.
@@ -56,7 +60,7 @@ While it's unnecessary to have an understanding of how `at` works in order to us
 To install `resy-cli`, run the following command from your terminal emulator:
 
 ```
-TODO
+brew install lgrees/lgrees/resy
 ```
 
 If the install succeeded, you should see a success message in your terminal.
@@ -65,6 +69,11 @@ You can verify that the installation was successful by running the following com
 ```
 resy -v
 ```
+If the command succeeds, you should see output like the following indicating the current version of `resy-cli`:
+```
+resy version 0.1.0
+```
+
 To view all of the commands that are available to you, run:
 ```
 resy
@@ -87,7 +96,7 @@ You'll be prompted to add an api key and an auth token. Follow these steps to fi
 
 At this point, you should see something that looks like the following:
 
-The information highlighted in COLOR is what you are looking for.
+The information highlighted in red is what you are looking for.
 
 To verify that this setup was successful, run:
 

@@ -17,6 +17,8 @@
 - [Installation](#installation)
 - [Authentication Setup](#authentication-setup)
 - [Scheduling a Booking](#scheduling-a-booking)
+- [Booking Immediately](#booking-immediately)
+- [Troubleshooting](#troubleshooting)
 - [FAQ](#faq)
 
 ## About
@@ -117,6 +119,18 @@ Run:
 resy schedule
 ```
 Now follow the prompts to schedule your booking.
+
+## Booking Immediately
+
+While scheduling a booking is the main intent of `resy-cli`, you may sometimes want to book immediately using the CLI (ex. when testing). `resy book` is an internal command that `resy schedule` uses under the hood which immediately books a reservation (analogous to clicking around in the resy UI). This command can be used in the following manner:
+
+```
+resy book --partySize=2 --reservationDate=2023-02-11 --reservationTimes=18:15:00  --venueId=123 --reservationTypes="" --wait=false --bookingDateTime=""
+```
+
+## Troubleshooting
+
+Any output from the booking job scheduled through `at` will write to `var/mail` on MacOS. This is the best way to identify what happened if booking does not succeed. If this output seems to indicate a bug with `resy-cli`, please feel free to log an issue!
 
 ## FAQ
 

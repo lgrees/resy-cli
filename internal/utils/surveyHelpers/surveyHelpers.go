@@ -4,6 +4,7 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/lgrees/resy-cli/internal/utils/date"
@@ -30,9 +31,13 @@ func DateValidator(val interface{}) error {
 		return errors.New("input must be a string")
 	}
 
-	_, err := date.ParseDate(str)
+	t, err := date.ParseDate(str)
 	if err != nil {
 		return errors.New("input must be a valid date (YYYY-MM-DD)")
+	}
+
+	if !t.After(time.Now().Local()) {
+		return errors.New("the date selected should be in the future")
 	}
 
 	return nil
@@ -41,14 +46,32 @@ func DateValidator(val interface{}) error {
 func DateTimeValidator(val interface{}) error {
 	str, ok := val.(string)
 	if !ok {
-		return errors.New("Input must be a string.")
+		return errors.New("input must be a string")
 	}
 
-	_, err := date.ParseDateTime(str)
+	t, err := date.ParseDateTime(str)
+
 	if err != nil {
-		return errors.New("Input must be a valid date time (YYYY-MM-DD HH:MM:SS)")
+		return errors.New("input must be a valid date time (YYYY-MM-DD HH:MM:SS)")
 	}
 
+	if !t.After(time.Now().Local()) {
+		return errors.New("the datetime selected should be in the future")
+	}
+
+	return nil
+}
+
+func VenueValidator(val interface{}) error {
+	str, ok := val.(string)
+	if !ok {
+		return errors.New("input must be a string")
+	}
+
+	arr := strings.Split(str, " | ")
+	if len(arr) < 5 {
+		return errors.New("please tab to search and select a venue")
+	}
 	return nil
 }
 

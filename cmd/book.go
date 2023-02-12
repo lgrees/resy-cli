@@ -13,8 +13,6 @@ var bookCmd = &cobra.Command{
 	Generally, users of resy-cli should schedule a booking using "resy schedule".
 	`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// var bookingDetails book.BookingDetails
-
 		flags := cmd.Flags()
 
 		venueId, _ := flags.GetString("venueId")

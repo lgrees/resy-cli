@@ -107,7 +107,7 @@ func WaitThenBook(bookingDetails *BookingDetails, dryRun bool) error {
 	if duration.Minutes() > 5 {
 		return fmt.Errorf("cannot wait more than %f minutes to book", duration.Minutes())
 	}
-	time.Sleep(duration)
+	time.Sleep(duration + (time.Millisecond * 200))
 
 	return Book(bookingDetails, dryRun)
 }
@@ -129,13 +129,17 @@ func fetchSlots(bookingDetails *BookingDetails) ([]Slot, error) {
 		return nil, fmt.Errorf("failed to fetch slots for date, status code: %d", statusCode)
 	}
 
-	var obj FindResponse
-	err = json.Unmarshal(body, &obj)
+	var res FindResponse
+	err = json.Unmarshal(body, &res)
 	if err != nil {
 		return nil, err
 	}
 
-	return obj.Results.Venues[0].Slots, nil
+	if len(res.Results.Venues) == 0 {
+		return nil, errors.New("no slots for date")
+	}
+
+	return res.Results.Venues[0].Slots, nil
 }
 
 func findMatches(bookingDetails *BookingDetails, slots []Slot) (matches []Slot) {

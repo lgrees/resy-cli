@@ -28,7 +28,7 @@ type Req struct {
 func template(method string, contentType string) func(string, *Req) ([]byte, int, error) {
 	return func(url string, p *Req) ([]byte, int, error) {
 		req, _ := http.NewRequest(method, url, bytes.NewReader(p.Body))
-		client := &http.Client{Timeout: 1 * time.Second}
+		client := &http.Client{Timeout: 3 * time.Second}
 		authHeaders := getAuthHeaders()
 		if contentType != "" {
 			req.Header.Add("content-type", contentType)

@@ -31,10 +31,10 @@ func init() {
 }
 
 func initConfig() {
-	homePath, err := os.UserConfigDir()
+	configPath, err := os.UserConfigDir()
 	cobra.CheckErr(err)
 
-	appPath := path.Join(homePath, constants.AppDirName)
+	appPath := path.Join(configPath, constants.AppDirName)
 	configFilePath := path.Join(appPath, constants.AppAuthCfgFile)
 
 	if _, err = os.Stat(appPath); os.IsNotExist(err) {

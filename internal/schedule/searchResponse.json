@@ -1,0 +1,719 @@
+{
+  "search": {
+    "page": 0,
+    "nbHits": 122,
+    "hitsPerPage": 5,
+    "nbPages": 25,
+    "hits": [
+      {
+        "_geoloc": { "lat": 40.72717, "lng": -73.99235 },
+        "neighborhood": "Noho/East Village",
+        "resy_select": 0,
+        "location": { "id": 1, "name": "New York", "code": "ny" },
+        "menu_highlights": [
+          "MAFALDINE CARBONARA",
+          "HOMEMADE STROZZAPRETI",
+          "TRADITIONAL \"SOUTH TYROL\" CANEDERLI",
+          "GRANDMOTHER RECIPE LASAGNA"
+        ],
+        "inventory_type_id": 2,
+        "is_global_dining_access": false,
+        "objectID": "58489",
+        "region": "NY",
+        "price_range_id": 1,
+        "collections": [],
+        "availability": null,
+        "is_rga": 0,
+        "name": "Misirizzi",
+        "is_gdc": 0,
+        "url_slug": "misirizzi",
+        "contact": { "phone_number": "+12123750100" },
+        "inventory_any": [
+          "2022-11-12",
+          "2022-11-13",
+          "2022-11-15",
+          "2022-11-16",
+          "2022-11-17",
+          "2022-11-18",
+          "2022-11-19",
+          "2022-11-20",
+          "2022-11-22",
+          "2022-11-23",
+          "2022-11-24",
+          "2022-11-25",
+          "2022-11-26",
+          "2022-11-27",
+          "2022-11-29",
+          "2022-11-30",
+          "2022-12-01",
+          "2022-12-02",
+          "2022-12-03",
+          "2022-12-04",
+          "2022-12-06",
+          "2022-12-07",
+          "2022-12-08",
+          "2022-12-09",
+          "2022-12-10",
+          "2022-12-11"
+        ],
+        "enable_for_app": 1,
+        "source": {
+          "privacy_policy": null,
+          "terms_of_service": null,
+          "name": null,
+          "logo": null
+        },
+        "rating": { "count": 259, "average": 4.48649 },
+        "is_gns": 0,
+        "reopen": { "date": "2021-12-18" },
+        "images": [
+          "https://image.resy.com/3/003/2/58489/5e3a27c8b17c03c97e1d268489ab8a99e9f9b145/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/ed6fbe83adc68d1d360425c4e7c817f969e91bcf/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/61646f51f71e6de6621393f53584019058fe75b7/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/6e0acae68f3ef0ad68ad48390bc3091a5dac257a/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/db1bbc4bd8e4eda6db4b515c61c47ec76dd88fb1/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/c05e0f3e2b9eab87fd934f52ede652b263a0e65c/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/ad71d75c13d14d925a3dc9fc5ef90066ee5aedb6/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/20367eb255bc13985ade6df9d83ee74df976a790/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/e0e4bab52d9237f5cb37c3db149b040e9f4a6830/jpg/640x360",
+          "https://image.resy.com/3/003/2/58489/489c7804b27825fd25eafa282d026789f10f634e/jpg/640x360"
+        ],
+        "collection": [],
+        "gda_concierge_booking": false,
+        "favorite": false,
+        "cuisine": ["Italian"],
+        "requires_reservation_transfers": 0,
+        "inventory_event": [],
+        "content": [
+          {
+            "icon": {
+              "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+            },
+            "name": "why_we_like_it",
+            "title": null,
+            "display": { "type": "text" },
+            "body": "",
+            "attribution": null,
+            "locale": { "language": "en-us" }
+          }
+        ],
+        "currency_symbol": "$",
+        "country": "United States",
+        "keywords": [],
+        "id": { "resy": 58489 },
+        "cuisine_detail": null,
+        "_highlightResult": {
+          "name": {
+            "value": "<em>Misi</em>rizzi",
+            "matchLevel": "full",
+            "fullyHighlighted": false,
+            "matchedWords": ["misi"]
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Noho/East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            { "value": "Italian", "matchLevel": "none", "matchedWords": [] }
+          ]
+        },
+        "locality": "New York"
+      },
+      {
+        "_geoloc": { "lat": 40.713514, "lng": -73.966933 },
+        "neighborhood": "Williamsburg",
+        "resy_select": 0,
+        "location": { "id": 1, "name": "New York", "code": "ny" },
+        "menu_highlights": [],
+        "inventory_type_id": 2,
+        "is_global_dining_access": true,
+        "objectID": "3015",
+        "region": "NY",
+        "price_range_id": 3,
+        "collections": [
+          {
+            "name": "The Women of Food: New York",
+            "file_name": "women",
+            "type_id": 1,
+            "short_name": "Women-Operated",
+            "id": "880",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/women.svg"
+          },
+          {
+            "name": "Where to Dine Out and Shop Small",
+            "file_name": "holiday",
+            "type_id": 1,
+            "short_name": "Dine Small",
+            "id": "1025",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/holiday.svg"
+          },
+          {
+            "name": "New York\u2019s Top Pasta Destinations",
+            "file_name": "bowtie",
+            "type_id": 1,
+            "short_name": "Pasta Picks",
+            "id": "1098",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/bowtie.svg"
+          },
+          {
+            "name": "Book Tonight",
+            "file_name": "book-tonight",
+            "type_id": 2,
+            "short_name": "Book Tonight",
+            "id": "888",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/book-tonight.svg"
+          },
+          {
+            "name": "Climbing",
+            "file_name": "climbing",
+            "type_id": 3,
+            "short_name": "Climbing",
+            "id": "889",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/climbing.svg"
+          },
+          {
+            "name": "Global Dining Access",
+            "file_name": "rga",
+            "type_id": 10,
+            "short_name": "Global Dining Access",
+            "id": "14",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/rga.svg"
+          }
+        ],
+        "availability": null,
+        "is_rga": 1,
+        "name": "Misi",
+        "is_gdc": 1,
+        "url_slug": "misi",
+        "contact": { "phone_number": "+13475663262" },
+        "inventory_any": [
+          "2022-11-12",
+          "2022-11-13",
+          "2022-11-14",
+          "2022-11-15",
+          "2022-11-16",
+          "2022-11-17",
+          "2022-11-18",
+          "2022-11-19",
+          "2022-11-20",
+          "2022-11-21",
+          "2022-11-22",
+          "2022-11-23",
+          "2022-11-25",
+          "2022-11-26",
+          "2022-11-27",
+          "2022-11-28",
+          "2022-11-29",
+          "2022-11-30",
+          "2022-12-01",
+          "2022-12-02",
+          "2022-12-03",
+          "2022-12-04",
+          "2022-12-05",
+          "2022-12-06",
+          "2022-12-07",
+          "2022-12-08",
+          "2022-12-09"
+        ],
+        "enable_for_app": 1,
+        "source": {
+          "privacy_policy": null,
+          "terms_of_service": null,
+          "name": null,
+          "logo": null
+        },
+        "rating": { "count": 15788, "average": 4.71922 },
+        "is_gns": 0,
+        "reopen": { "date": "2020-09-30" },
+        "images": [
+          "https://image.resy.com/3/003/2/3015/5abaeb1f4b80c06f94aa9599ed24cc7694d18b1c/jpg/640x360"
+        ],
+        "collection": ["14", "880", "888", "889", "1025", "1098"],
+        "gda_concierge_booking": false,
+        "favorite": false,
+        "cuisine": ["Italian"],
+        "requires_reservation_transfers": 0,
+        "inventory_event": [],
+        "content": [
+          {
+            "icon": {
+              "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+            },
+            "name": "why_we_like_it",
+            "title": "Why We Like It",
+            "display": { "type": "text" },
+            "body": "Misi serves up some deceptively simple pastas, which are made fresh every morning. Be sure to peek inside the glass-enclosed pasta-making lab, and save room for dessert (spoiler alert: it\u2019s gelato).",
+            "attribution": null,
+            "locale": { "language": "en-us" }
+          }
+        ],
+        "currency_symbol": "$",
+        "country": "United States",
+        "keywords": [],
+        "id": { "resy": 3015 },
+        "cuisine_detail": ["Italian American"],
+        "_highlightResult": {
+          "neighborhood": {
+            "value": "Williamsburg",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "locality": {
+            "value": "Brooklyn",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine_detail": [
+            {
+              "value": "Italian American",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "name": {
+            "value": "<em>Misi</em>",
+            "matchLevel": "full",
+            "fullyHighlighted": true,
+            "matchedWords": ["misi"]
+          },
+          "cuisine": [
+            { "value": "Italian", "matchLevel": "none", "matchedWords": [] }
+          ]
+        },
+        "locality": "Brooklyn"
+      },
+      {
+        "_geoloc": { "lat": 39.467121, "lng": -0.333652 },
+        "neighborhood": "Valencia",
+        "resy_select": 0,
+        "location": { "id": 845, "name": "Valencia", "code": "vln" },
+        "menu_highlights": [],
+        "inventory_type_id": 2,
+        "is_global_dining_access": false,
+        "objectID": "9778",
+        "region": "Valencia",
+        "price_range_id": 1,
+        "collections": [],
+        "availability": null,
+        "is_rga": 0,
+        "name": "Restaurante miSitio",
+        "is_gdc": 0,
+        "url_slug": "restaurante-misitio",
+        "contact": { "phone_number": "+34963729405" },
+        "inventory_any": [
+          "2022-11-12",
+          "2022-11-13",
+          "2022-11-14",
+          "2022-11-15",
+          "2022-11-16",
+          "2022-11-17",
+          "2022-11-18",
+          "2022-11-19",
+          "2022-11-20",
+          "2022-11-21",
+          "2022-11-22",
+          "2022-11-23",
+          "2022-11-24",
+          "2022-11-25",
+          "2022-11-26",
+          "2022-11-27",
+          "2022-11-28",
+          "2022-11-29",
+          "2022-11-30",
+          "2022-12-01",
+          "2022-12-02",
+          "2022-12-03",
+          "2022-12-04",
+          "2022-12-05",
+          "2022-12-06",
+          "2022-12-07",
+          "2022-12-08",
+          "2022-12-09",
+          "2022-12-10",
+          "2022-12-11"
+        ],
+        "enable_for_app": 1,
+        "source": {
+          "privacy_policy": "https://www.covermanager.com/images/ppcovermanager.pdf",
+          "terms_of_service": "https://www.covermanager.com/images/alcovermanager.pdf",
+          "name": "Cover Manager",
+          "logo": "https://s3.amazonaws.com/resy.com/rgs/logo/logo-cover-manager.svg"
+        },
+        "rating": { "count": 0, "average": 4.0 },
+        "is_gns": 0,
+        "reopen": { "date": null },
+        "images": [
+          "https://image.resy.com/3/003/2/9778/8b33c180527da313660e25dcff83105f80c752ee/jpg/640x360"
+        ],
+        "collection": [],
+        "gda_concierge_booking": false,
+        "favorite": false,
+        "cuisine": ["Mediterranean"],
+        "requires_reservation_transfers": 0,
+        "inventory_event": [],
+        "content": [
+          {
+            "icon": {
+              "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+            },
+            "name": "why_we_like_it",
+            "title": null,
+            "display": { "type": "text" },
+            "body": null,
+            "attribution": null,
+            "locale": null
+          }
+        ],
+        "currency_symbol": "\u20ac",
+        "country": "Spain",
+        "keywords": ["brunch"],
+        "id": { "resy": 9778 },
+        "cuisine_detail": ["Mediterranean"],
+        "_highlightResult": {
+          "locality": {
+            "value": "Valencia",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Valencia",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "keywords": [
+            { "value": "brunch", "matchLevel": "none", "matchedWords": [] }
+          ],
+          "name": {
+            "value": "Restaurante <em>miSi</em>tio",
+            "matchLevel": "full",
+            "fullyHighlighted": false,
+            "matchedWords": ["misi"]
+          },
+          "cuisine": [
+            {
+              "value": "Mediterranean",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "location": {
+            "name": {
+              "value": "Valencia",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "cuisine_detail": [
+            {
+              "value": "Mediterranean",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ]
+        },
+        "locality": "Valencia"
+      },
+      {
+        "_geoloc": { "lat": 40.726802, "lng": -73.986291 },
+        "neighborhood": "East Village",
+        "resy_select": 0,
+        "location": { "id": 1, "name": "New York", "code": "ny" },
+        "menu_highlights": [
+          "Party Lobster: tequila, mezcal, campari, watermelon, lime, habanero",
+          "Cougar Magnum: gin, st. germain, popcorn, smoked grapefruit, lemon, islay scotch",
+          "Cafe Disco: rye, coffee, buckwheat, olive oil, absinthe"
+        ],
+        "inventory_type_id": 2,
+        "is_global_dining_access": false,
+        "objectID": "51561",
+        "region": "NY",
+        "price_range_id": 2,
+        "collections": [
+          {
+            "name": "The Best Places to Drink in New York",
+            "file_name": "cocktails",
+            "type_id": 1,
+            "short_name": "Where to Drink",
+            "id": "1028",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/cocktails.svg"
+          },
+          {
+            "name": "Top Rated",
+            "file_name": "toprated",
+            "type_id": 5,
+            "short_name": "Top Rated",
+            "id": "891",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/toprated.svg"
+          }
+        ],
+        "availability": null,
+        "is_rga": 0,
+        "name": "Mister Paradise",
+        "is_gdc": 0,
+        "url_slug": "mister-paradise",
+        "contact": { "phone_number": "" },
+        "inventory_any": [
+          "2022-11-12",
+          "2022-11-15",
+          "2022-11-16",
+          "2022-11-17",
+          "2022-11-18",
+          "2022-11-19",
+          "2022-11-22",
+          "2022-11-23",
+          "2022-11-24",
+          "2022-11-25",
+          "2022-11-26",
+          "2022-11-29",
+          "2022-11-30",
+          "2022-12-01",
+          "2022-12-02",
+          "2022-12-03",
+          "2022-12-06",
+          "2022-12-07",
+          "2022-12-08",
+          "2022-12-09",
+          "2022-12-10"
+        ],
+        "enable_for_app": 1,
+        "source": {
+          "privacy_policy": null,
+          "terms_of_service": null,
+          "name": null,
+          "logo": null
+        },
+        "rating": { "count": 39, "average": 4.76923 },
+        "is_gns": 0,
+        "reopen": { "date": "2021-05-19" },
+        "images": [
+          "https://image.resy.com/3/003/2/51561/3e9ceb71855e34fb8251f00e81b32cfe14bd263c/jpg/640x360",
+          "https://image.resy.com/3/003/2/51561/4c75998c4206b9c677ba4582979f8842a9c0e9c8/jpg/640x360",
+          "https://image.resy.com/3/003/2/51561/3a6a3f1826bec424c2c7b0ec025b90940bd49342/jpg/640x360",
+          "https://image.resy.com/3/003/2/51561/ea4943eda1d647d694c701305c341df6afe8b888/jpg/640x360"
+        ],
+        "collection": ["891", "1028"],
+        "gda_concierge_booking": false,
+        "favorite": false,
+        "cuisine": ["American"],
+        "requires_reservation_transfers": 0,
+        "inventory_event": [],
+        "content": [
+          {
+            "icon": {
+              "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+            },
+            "name": "why_we_like_it",
+            "title": null,
+            "display": { "type": "text" },
+            "body": "A seat at the wooden and emerald green-tiled bar is where you\u2019ll want to be at this intimate little nook in the East Village. Mister Paradise is a cherished cocktail bar where a lineup of cheekily dubbed drinks (like Dinner at Cote, Party Lobster, and Cougar Magnum \u2014 all of which are delicious) boast ingredients ranging from popcorn to garlic, and even fermented habanero. Simply put: They\u2019re special, and so is the burger.",
+            "attribution": null,
+            "locale": { "language": "en-us" }
+          }
+        ],
+        "currency_symbol": "$",
+        "country": "United States",
+        "keywords": [],
+        "id": { "resy": 51561 },
+        "cuisine_detail": null,
+        "_highlightResult": {
+          "name": {
+            "value": "<em>Mist</em>er Paradise",
+            "matchLevel": "full",
+            "fullyHighlighted": false,
+            "matchedWords": ["misi"]
+          },
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "cuisine": [
+            { "value": "American", "matchLevel": "none", "matchedWords": [] }
+          ],
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        "locality": "New York"
+      },
+      {
+        "_geoloc": { "lat": 40.7260217, "lng": -73.9859803 },
+        "neighborhood": "East Village",
+        "resy_select": 0,
+        "location": { "id": 1, "name": "New York", "code": "ny" },
+        "menu_highlights": [
+          "Jerk Corn, with jerk mayo & toasted coconut",
+          "Miss Lily's World Famous Jerk Chicken",
+          "Rum Punch"
+        ],
+        "inventory_type_id": 2,
+        "is_global_dining_access": false,
+        "objectID": "1968",
+        "region": "NY",
+        "price_range_id": 2,
+        "collections": [
+          {
+            "name": "Where to Dine with a Crew in New York",
+            "file_name": "groups",
+            "type_id": 1,
+            "short_name": "Good for Groups",
+            "id": "878",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/groups.svg"
+          },
+          {
+            "name": "New York\u2019s Best Outdoor Dining",
+            "file_name": "spring",
+            "type_id": 1,
+            "short_name": "Al Fresco Dining",
+            "id": "998",
+            "image": "https://s3.amazonaws.com/resy.com/images/lists/spring.svg"
+          }
+        ],
+        "availability": null,
+        "is_rga": 0,
+        "name": "Miss Lily's 7A Cafe & Rum Bar",
+        "is_gdc": 0,
+        "url_slug": "miss-lilys-7a-cafe-and-rum-bar",
+        "contact": { "phone_number": "+12128121482" },
+        "inventory_any": [
+          "2022-11-12",
+          "2022-11-13",
+          "2022-11-14",
+          "2022-11-15",
+          "2022-11-16",
+          "2022-11-17",
+          "2022-11-18",
+          "2022-11-19",
+          "2022-11-20",
+          "2022-11-21",
+          "2022-11-22",
+          "2022-11-23",
+          "2022-11-24",
+          "2022-11-25",
+          "2022-11-26",
+          "2022-11-27",
+          "2022-11-28",
+          "2022-11-29",
+          "2022-11-30",
+          "2022-12-01",
+          "2022-12-02",
+          "2022-12-03",
+          "2022-12-04",
+          "2022-12-05",
+          "2022-12-06",
+          "2022-12-07",
+          "2022-12-08",
+          "2022-12-09"
+        ],
+        "enable_for_app": 1,
+        "source": {
+          "privacy_policy": null,
+          "terms_of_service": null,
+          "name": null,
+          "logo": null
+        },
+        "rating": { "count": 2842, "average": 4.65517 },
+        "is_gns": 0,
+        "reopen": { "date": "2020-06-23" },
+        "images": [
+          "https://image.resy.com/3/003/2/1968/b1bfe155c7644485fb7ee019c94114b173fdcdfe/jpg/640x360",
+          "https://image.resy.com/3/003/2/1968/13bd12a9fb6904e608a0558f19bf971d9e881398/jpg/640x360",
+          "https://image.resy.com/3/003/2/1968/301355a03edba1bdef322cc6c73319010d766b6a/jpg/640x360",
+          "https://image.resy.com/3/003/2/1968/ae87da1da17e7894adbe47f7064b4b2251be5ef6/jpg/640x360",
+          "https://image.resy.com/3/003/2/1968/25e48e727a11ec82390302f5ac4c3ed8bd1720fe/jpg/640x360",
+          "https://image.resy.com/3/003/2/1968/4684949d2c16dea0fedfe6d99a616cdd90182a08/jpg/640x360"
+        ],
+        "collection": ["878", "998"],
+        "gda_concierge_booking": false,
+        "favorite": false,
+        "cuisine": ["Caribbean"],
+        "requires_reservation_transfers": 0,
+        "inventory_event": [],
+        "content": [
+          {
+            "icon": {
+              "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+            },
+            "name": "why_we_like_it",
+            "title": null,
+            "display": { "type": "text" },
+            "body": "",
+            "attribution": null,
+            "locale": { "language": "en-us" }
+          }
+        ],
+        "currency_symbol": "$",
+        "country": "United States",
+        "keywords": ["brunch"],
+        "id": { "resy": 1968 },
+        "cuisine_detail": ["Caribbean"],
+        "_highlightResult": {
+          "cuisine_detail": [
+            { "value": "Caribbean", "matchLevel": "none", "matchedWords": [] }
+          ],
+          "cuisine": [
+            { "value": "Caribbean", "matchLevel": "none", "matchedWords": [] }
+          ],
+          "name": {
+            "value": "<em>Miss</em> Lily's 7A Cafe & Rum Bar",
+            "matchLevel": "full",
+            "fullyHighlighted": false,
+            "matchedWords": ["misi"]
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "keywords": [
+            { "value": "brunch", "matchLevel": "none", "matchedWords": [] }
+          ],
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        "locality": "New York"
+      }
+    ]
+  },
+  "meta": { "page": 1, "total_pages": 25, "per_page": 5, "total": 122 },
+  "suggestions": []
+}

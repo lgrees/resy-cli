@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.6
+	github.com/rs/zerolog v1.29.0
 	github.com/spf13/cobra v1.6.0
 	github.com/spf13/viper v1.13.0
 )

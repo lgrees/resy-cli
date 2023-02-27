@@ -3,9 +3,8 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"path"
 
-	"github.com/lgrees/resy-cli/constants"
+	"github.com/lgrees/resy-cli/internal/utils/paths"
 	"github.com/lgrees/resy-cli/version"
 
 	"github.com/spf13/cobra"
@@ -31,16 +30,25 @@ func init() {
 }
 
 func initConfig() {
-	configPath, err := os.UserConfigDir()
+	p, err := paths.GetAppPaths()
 	cobra.CheckErr(err)
 
-	appPath := path.Join(configPath, constants.AppDirName)
-	configFilePath := path.Join(appPath, constants.AppAuthCfgFile)
+	appPath := p.AppPath
+	configFilePath := p.ConfigFilePath
+	logPath := p.LogPath
 
 	if _, err = os.Stat(appPath); os.IsNotExist(err) {
 		err = os.Mkdir(appPath, os.FileMode(0777))
 		if err != nil {
 			fmt.Println("Error creating config directory")
+			return
+		}
+	}
+
+	if _, err = os.Stat(logPath); os.IsNotExist(err) {
+		err = os.Mkdir(logPath, os.FileMode(0777))
+		if err != nil {
+			fmt.Println("Error creating log directory")
 			return
 		}
 	}

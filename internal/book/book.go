@@ -1,17 +1,14 @@
 package book
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"net/url"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/lgrees/resy-cli/internal/utils/date"
-	"github.com/lgrees/resy-cli/internal/utils/http"
+	"github.com/rs/zerolog"
 )
 
 type BookingDetails struct {
@@ -26,6 +23,15 @@ type BookingDetails struct {
 	ReservationTypes []string
 }
 
+func (b BookingDetails) MarshalZerologObject(e *zerolog.Event) {
+	e.Str("reservation_times", strings.Join(b.ReservationTimes, ",")).
+		Str("reservation_types", strings.Join(b.ReservationTypes, ",")).
+		Str("reservation_date", b.ReservationDate).
+		Str("party_size", b.PartySize).
+		Str("venue_id", b.VenueId).
+		Str("booking_datetime", b.BookingDateTime)
+}
+
 type Slot struct {
 	Date struct {
 		Start string
@@ -37,23 +43,17 @@ type Slot struct {
 	}
 }
 
-type FindResponse struct {
-	Results struct {
-		Venues []struct {
-			Slots []Slot
-		}
-	}
+func (s Slot) MarshalZerologObject(e *zerolog.Event) {
+	e.Str("reservation_time", s.Date.Start).
+		Str("reservation_type", s.Config.Type)
 }
 
-type DetailsResponse struct {
-	BookToken struct {
-		Value string `json:"value"`
-	} `json:"book_token"`
-	User struct {
-		PaymentMethods []struct {
-			Id int64 `json:"id"`
-		} `json:"payment_methods"`
-	} `json:"user"`
+type Slots []Slot
+
+func (s Slots) MarshalZerologArray(a *zerolog.Array) {
+	for _, s := range s {
+		a.Object(s)
+	}
 }
 
 type BookingConfig struct {
@@ -73,76 +73,66 @@ func ToBookCmd(bookingDetails *BookingDetails, dryRun bool) string {
 	times := strings.Join(bookingDetails.ReservationTimes, ",")
 	resyExec, _ := os.Executable()
 
-	return fmt.Sprintf("%s book --bookingDateTime='%s' --venueId=%s --partySize=%s --reservationDate=%s --reservationTimes=%s --reservationTypes=%s --dryRun=%t --wait", resyExec, bookingDetails.BookingDateTime, bookingDetails.VenueId, bookingDetails.PartySize, bookingDetails.ReservationDate, times, types, dryRun)
+	return fmt.Sprintf("%s book --bookingDateTime='%s' --venueId=%s --partySize=%s --reservationDate=%s --reservationTimes=%s --reservationTypes=%s --dryRun=%t", resyExec, bookingDetails.BookingDateTime, bookingDetails.VenueId, bookingDetails.PartySize, bookingDetails.ReservationDate, times, types, dryRun)
 }
 
-func Book(bookingDetails *BookingDetails, dryRun bool) error {
+func Book(bookingDetails *BookingDetails, dryRun bool, logger zerolog.Logger) error {
 	slots, err := fetchSlots(bookingDetails)
 	if err != nil {
+		logger.Error().Err(err).Msg("failed to fetch slots")
 		return err
 	}
 
+	logger.Info().Array("available_slots", slots).Msg("found available slots")
+
 	matchingSlots := findMatches(bookingDetails, slots)
 	if len(matchingSlots) == 0 {
-		return errors.New("no matching slots")
+		err = errors.New("no matching slots")
+		logger.Error().Err(err).Msg("no matching slots")
+		return err
+
 	}
+
+	logger.Info().Array("matching_slots", matchingSlots).Msg("found matching slots")
+
 	if dryRun {
 		return nil
 	}
 
-	err = book(bookingDetails, matchingSlots)
+	err = book(bookingDetails, matchingSlots, logger)
 	if err != nil {
+		logger.Error().Err(err).Msg("no booking occurred")
 		return err
 	}
 	return nil
 }
 
-func WaitThenBook(bookingDetails *BookingDetails, dryRun bool) error {
+func WaitThenBook(bookingDetails *BookingDetails, dryRun bool, logger zerolog.Logger) error {
 	bookTime, err := date.ParseDateTime(bookingDetails.BookingDateTime)
 	if err != nil {
+		logger.Error().Err(err).Msg("failed to parse booking datetime")
+		return err
+	}
+	duration := time.Until(*bookTime)
+	if duration.Minutes() > 5 {
+		err = fmt.Errorf("cannot wait more than 5 minutes to book - it is currently %f minutes before book time", duration.Minutes())
+		logger.Error().Err(err).Msg("stopped waiting to book")
 		return err
 	}
 
-	duration := time.Until(*bookTime)
-	if duration.Minutes() > 5 {
-		return fmt.Errorf("cannot wait more than %f minutes to book", duration.Minutes())
+	if duration < 0 {
+		err = errors.New("book time has already passed")
+		logger.Error().Err(err).Msg("this can occur when your computer is asleep/turned off during book time")
+		return err
 	}
-	time.Sleep(duration + (time.Millisecond * 200))
 
-	return Book(bookingDetails, dryRun)
+	logger.Info().Msgf("waiting %d seconds until booking time: %s", duration/time.Second, bookingDetails.BookingDateTime)
+	time.Sleep(duration + (time.Millisecond * 700))
+
+	return Book(bookingDetails, dryRun, logger)
 }
 
-func fetchSlots(bookingDetails *BookingDetails) ([]Slot, error) {
-	params := make(map[string]string)
-	params["party_size"] = bookingDetails.PartySize
-	params["venue_id"] = bookingDetails.VenueId
-	params["day"] = bookingDetails.ReservationDate
-	// Seemingly deprecated but still required by the resy API
-	params["lat"] = "0"
-	params["long"] = "0"
-
-	body, statusCode, err := http.Get("https://api.resy.com/4/find", &http.Req{QueryParams: params})
-	if err != nil {
-		return nil, err
-	}
-	if statusCode != 200 {
-		return nil, fmt.Errorf("failed to fetch slots for date, status code: %d", statusCode)
-	}
-
-	var res FindResponse
-	err = json.Unmarshal(body, &res)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(res.Results.Venues) == 0 {
-		return nil, errors.New("no slots for date")
-	}
-
-	return res.Results.Venues[0].Slots, nil
-}
-
-func findMatches(bookingDetails *BookingDetails, slots []Slot) (matches []Slot) {
+func findMatches(bookingDetails *BookingDetails, slots Slots) (matches Slots) {
 	for _, slot := range slots {
 		if isSlotMatch(bookingDetails, slot) {
 			matches = append(matches, slot)
@@ -151,67 +141,17 @@ func findMatches(bookingDetails *BookingDetails, slots []Slot) (matches []Slot) 
 	return
 }
 
-func book(bookingDetails *BookingDetails, matchingSlots []Slot) error {
+func book(bookingDetails *BookingDetails, matchingSlots Slots, logger zerolog.Logger) error {
 	for _, slot := range matchingSlots {
+		logger.Info().Object("slot", slot).Msg("attempting to book slot")
 		err := bookSlot(bookingDetails, slot)
 		if err == nil {
 			return nil
 		}
+		logger.Warn().Err(err).Object("slot", slot).Msg("booking slot failed")
 	}
 
 	return errors.New("could not book any matching slots")
-}
-
-func bookSlot(bookingDetails *BookingDetails, slot Slot) error {
-	// Get booking token
-	partySize, _ := strconv.Atoi(bookingDetails.PartySize)
-	bookingConfig := BookingConfig{
-		ConfigId:  slot.Config.Token,
-		Day:       bookingDetails.ReservationDate,
-		PartySize: int64(partySize),
-	}
-	body, err := json.Marshal(bookingConfig)
-	if err != nil {
-		return err
-	}
-	responseBody, statusCode, err := http.PostJSON("https://api.resy.com/3/details", &http.Req{Body: body})
-	if err != nil {
-		return err
-	}
-	if statusCode >= 400 || responseBody == nil {
-		return fmt.Errorf("failed to get booking details, status code: %d", statusCode)
-	}
-
-	var details DetailsResponse
-	_ = json.Unmarshal(responseBody, &details)
-
-	// Actually book with token
-	token := fmt.Sprintf("book_token=%s", url.PathEscape(details.BookToken.Value))
-	var paymentDetails string
-	if details.User.PaymentMethods != nil {
-		if len(details.User.PaymentMethods) != 0 {
-			body, _ := json.Marshal(struct {
-				Id int64 `json:"id"`
-			}{Id: details.User.PaymentMethods[0].Id})
-			paymentDetails = fmt.Sprintf("struct_payment_method=%s", url.PathEscape(string(body)))
-		}
-	}
-
-	var form string
-	if paymentDetails != "" {
-		form = strings.Join([]string{token, paymentDetails}, "&")
-	} else {
-		form = token
-	}
-	_, statusCode, err = http.PostForm("https://api.resy.com/3/book", &http.Req{Body: []byte(form)})
-	if err != nil {
-		return err
-	}
-	if statusCode >= 400 {
-		return fmt.Errorf("failed to book reservation, status code: %d", statusCode)
-	}
-
-	return nil
 }
 
 func isSlotMatch(bookingDetails *BookingDetails, slot Slot) bool {

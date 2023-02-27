@@ -125,12 +125,24 @@ Now follow the prompts to schedule your booking.
 While scheduling a booking is the main intent of `resy-cli`, you may sometimes want to book immediately using the CLI (ex. when testing). `resy book` is an internal command that `resy schedule` uses under the hood which immediately books a reservation (analogous to clicking around in the resy UI). This command can be used in the following manner:
 
 ```
-resy book --partySize=2 --reservationDate=2023-02-11 --reservationTimes=18:15:00  --venueId=123 --reservationTypes="" --wait=false --bookingDateTime=""
+resy book --partySize=2 --reservationDate=2023-02-11 --reservationTimes=18:15:00  --venueId=123 --reservationTypes=""
 ```
 
 ## Troubleshooting
 
-Any output from the booking job scheduled through `at` will write to `var/mail` on MacOS. This is the best way to identify what happened if booking does not succeed. If this output seems to indicate a bug with `resy-cli`, please feel free to log an issue!
+`resy-cli` outputs a log file for every attempted booking (including dry runs). To view logs, run:
+
+```
+resy log view
+```
+
+Viewing log files will help to deduce what went wrong if `resy-cli` fails to book your desired reservation. Most often, this is due to your computer not being awake at the time of booking, or the restaurant not releasing any slots that match your criteria.
+
+To remove all log files, run:
+
+```
+resy log clear
+```
 
 ## FAQ
 
@@ -146,6 +158,8 @@ Reservation times are localized to the location of the restaurant.
 
 **Q:** What if my computer is turned off / asleep at the time when I want to book a reservation?<br/>
 **A:** `resy-cli` books reservations using your local machine. If the machine is turned off / asleep, booking will not complete.
+
+To circumvent this, you can schedule your computer to wake from sleep at the time of booking. On Mac, I've used the `pmset` CLI to accomplish this successfully.
 
 **Q:** Are reservation services okay with this?<br/>
 **A:** It's up to users to follow the ([Terms of Service](https://resy.com/terms)) set forth by resy. `resy-cli` is just a tool to automate your interactions with resy (no web scraping or anything of the sort).

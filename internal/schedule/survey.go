@@ -88,7 +88,7 @@ var questions = []*survey.Question{
 	{
 		Name: "reservationTypes",
 		Prompt: &survey.Multiline{
-			Message: "Reservation Types (ex. 'Indoor dining'):",
+			Message: "Reservation Types (ex. 'Indoor dining') - optional:",
 			Help:    "Generally, this corresponds directly to the tag that you see under the reservation (though not always). Leave this empty to book any type of reservation.",
 		},
 		Transform: surveyHelpers.TransformLowerCase,

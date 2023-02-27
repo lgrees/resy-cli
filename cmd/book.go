@@ -1,7 +1,14 @@
 package cmd
 
 import (
+	"fmt"
+	"os"
+	"path"
+	"time"
+
 	"github.com/lgrees/resy-cli/internal/book"
+	"github.com/lgrees/resy-cli/internal/utils/paths"
+	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 )
 
@@ -22,7 +29,6 @@ var bookCmd = &cobra.Command{
 		reservationTimes, _ := flags.GetStringSlice("reservationTimes")
 		reservationTypes, _ := flags.GetStringSlice("reservationTypes")
 		dryRun, _ := flags.GetBool("dryRun")
-		wait, _ := flags.GetBool("wait")
 
 		bookingDetails := &book.BookingDetails{
 			VenueId:          venueId,
@@ -33,12 +39,33 @@ var bookCmd = &cobra.Command{
 			ReservationTypes: reservationTypes,
 		}
 
-		var err error
+		p, err := paths.GetAppPaths()
+		if err != nil {
+			return err
+		}
 
-		if wait {
-			err = book.WaitThenBook(bookingDetails, dryRun)
+		venueName, _ := book.FetchVenueDetails(venueId)
+		formattedTime := time.Now().Format("Mon Jan _2 15:04:05 2006")
+
+		logFileName := path.Join(p.LogPath, fmt.Sprintf("%s_%s.log", venueName, formattedTime))
+		logFile, err := os.OpenFile(
+			logFileName,
+			os.O_APPEND|os.O_CREATE|os.O_WRONLY,
+			0664,
+		)
+		if err != nil {
+			panic(err)
+		}
+
+		defer logFile.Close()
+
+		l := zerolog.New(logFile).With().Timestamp().Logger()
+		l.Info().Object("booking_details", bookingDetails).Msg("attempting to book")
+
+		if bookingDateTime != "" {
+			err = book.WaitThenBook(bookingDetails, dryRun, l)
 		} else {
-			err = book.Book(bookingDetails, dryRun)
+			err = book.Book(bookingDetails, dryRun, l)
 		}
 
 		return err
@@ -52,7 +79,6 @@ func init() {
 
 	flags.String("venueId", "", "The venue id of the restaurant")
 	flags.Bool("dryRun", false, "When true, skips booking")
-	flags.Bool("wait", true, "When true, waits for bookingDateTime to book")
 	flags.String("partySize", "", "The party size for the reservation")
 	flags.String("bookingDateTime", "", "The time when the reservation should be booked")
 	flags.String("reservationDate", "", "The date of the reservation")
@@ -63,6 +89,4 @@ func init() {
 	bookCmd.MarkFlagRequired("partySize")
 	bookCmd.MarkFlagRequired("reservationDate")
 	bookCmd.MarkFlagRequired("reservationTimes")
-	bookCmd.MarkFlagRequired("reservationTypes")
-	bookCmd.MarkFlagsRequiredTogether("wait", "bookingDateTime")
 }

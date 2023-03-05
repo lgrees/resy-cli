@@ -9,7 +9,7 @@
 <br/>
 <br/>
 
-*Disclaimer: This document targets a non-technical audience. For a more technical version of this README, consult [PERUSEME.md]().*
+*Disclaimer: This document targets a non-technical audience. For a more technical version of this README, consult [PERUSEME.md](PERUSEME.md).*
 
 ## Table of Contents <!-- omit in toc -->
 - [About](#about)

@@ -23,6 +23,7 @@ type VenueResponse struct {
 	Venue struct {
 		Name string `json:"name"`
 	} `json:"venue"`
+	LeadTimeInDays int32 `json:"lead_time_in_days"`
 }
 
 type DetailsResponse struct {
@@ -36,25 +37,28 @@ type DetailsResponse struct {
 	} `json:"user"`
 }
 
-func FetchVenueDetails(venueId string) (string, error) {
+func FetchVenueDetails(venueId string) (*VenueDetails, error) {
 	params := make(map[string]string)
 	params["venue_id"] = venueId
 
 	body, statusCode, err := http.Get("https://api.resy.com/2/config", &http.Req{QueryParams: params})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if statusCode != 200 {
-		return "", fmt.Errorf("failed to fetch venue name for venue id %s", venueId)
+		return nil, fmt.Errorf("failed to fetch venue details for venue id %s", venueId)
 	}
 
 	var res VenueResponse
 	err = json.Unmarshal(body, &res)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return res.Venue.Name, nil
+	return &VenueDetails{
+		Name:           res.Venue.Name,
+		LeadTimeInDays: res.LeadTimeInDays,
+	}, nil
 }
 
 func fetchSlots(bookingDetails *BookingDetails) (Slots, error) {

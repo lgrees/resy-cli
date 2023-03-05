@@ -44,10 +44,10 @@ var bookCmd = &cobra.Command{
 			return err
 		}
 
-		venueName, _ := book.FetchVenueDetails(venueId)
+		venueDetails, _ := book.FetchVenueDetails(venueId)
 		formattedTime := time.Now().Format("Mon Jan _2 15:04:05 2006")
 
-		logFileName := path.Join(p.LogPath, fmt.Sprintf("%s_%s.log", venueName, formattedTime))
+		logFileName := path.Join(p.LogPath, fmt.Sprintf("%s_%s.log", venueDetails.Name, formattedTime))
 		logFile, err := os.OpenFile(
 			logFileName,
 			os.O_APPEND|os.O_CREATE|os.O_WRONLY,
@@ -60,7 +60,8 @@ var bookCmd = &cobra.Command{
 		defer logFile.Close()
 
 		l := zerolog.New(logFile).With().Timestamp().Logger()
-		l.Info().Object("booking_details", bookingDetails).Msg("attempting to book")
+
+		l.Info().Object("booking_details", bookingDetails).Msg("starting book job")
 
 		if bookingDateTime != "" {
 			err = book.WaitThenBook(bookingDetails, dryRun, l)

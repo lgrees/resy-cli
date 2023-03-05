@@ -19,7 +19,7 @@ type surveyVenue struct {
 type surveyInputs struct {
 	DryRun           bool
 	Venue            surveyVenue
-	BookingDateTime  string
+	SlotTime         string
 	PartySize        string
 	ReservationDate  string
 	ReservationTimes string
@@ -82,8 +82,8 @@ var questions = []*survey.Question{
 	},
 	{
 		Name:     "reservationTimes",
-		Prompt:   &survey.Multiline{Message: "Reservation Times (HH:MM:SS):"},
-		Validate: survey.Required,
+		Prompt:   &survey.Multiline{Message: "Reservation Times (HH:MM):"},
+		Validate: survey.ComposeValidators(survey.Required, surveyHelpers.TimesValidator),
 	},
 	{
 		Name: "reservationTypes",
@@ -94,11 +94,11 @@ var questions = []*survey.Question{
 		Transform: surveyHelpers.TransformLowerCase,
 	},
 	{
-		Name: "bookingDateTime",
+		Name: "slotTime",
 		Prompt: &survey.Input{
-			Message: "What date/time should resy-cli attempt to book this reservation? (YYYY-MM-DD HH:MM:SS)",
-			Help:    "Generally, this should be when the restaurant opens slots for the date you are trying to book."},
-		Validate: survey.ComposeValidators(survey.Required, surveyHelpers.DateTimeValidator),
+			Message: "What time do slots open? (HH:MM)",
+		},
+		Validate: survey.ComposeValidators(survey.Required, surveyHelpers.TimeValidator),
 	},
 	{
 		Name: "dryRun",
@@ -118,12 +118,24 @@ func surveyDetails() (*surveyInputs, error) {
 		return nil, err
 	}
 
+	bookingDateTime, err := getBookingDateTime(&answers)
+	if err != nil {
+		return nil, err
+	}
+
 	confirm := false
 	survey.AskOne(&survey.Confirm{Message: "Schedule to book with the above information?"}, &confirm)
 	if confirm {
-		fmt.Printf("\nGreat, I'll attempt to book your reservation for %s at %s on %s.", answers.PartySize, answers.Venue.Name, answers.BookingDateTime)
-		fmt.Println("\nMake sure that your credentials are up to date before then by running `resy ping`!")
-		return &answers, err
+		fmt.Printf(`
+		Great, resy-cli will attempt to book your reservation for a party of %s at %s.
+		The booking will be attempted at %s.
+		Make sure that your credentials are up to date before then by running 'resy ping'.
+		Additionally, make sure that your computer is awake at this time.
+
+		Happy dining! 😋
+		`, answers.PartySize, answers.Venue.Name, bookingDateTime)
+		fmt.Println("")
+		return &answers, nil
 	} else {
 		fmt.Println("Okay, I won't try to book anything.")
 		return nil, nil

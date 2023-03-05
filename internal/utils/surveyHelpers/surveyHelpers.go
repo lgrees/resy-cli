@@ -43,20 +43,36 @@ func DateValidator(val interface{}) error {
 	return nil
 }
 
-func DateTimeValidator(val interface{}) error {
+func TimeValidator(val interface{}) error {
 	str, ok := val.(string)
 	if !ok {
 		return errors.New("input must be a string")
 	}
 
-	t, err := date.ParseDateTime(str)
+	_, err := date.ParseTime(str)
 
 	if err != nil {
-		return errors.New("input must be a valid date time (YYYY-MM-DD HH:MM:SS)")
+		return errors.New("input must be a valid time (HH:MM)")
 	}
 
-	if !t.After(time.Now().Local()) {
-		return errors.New("the datetime selected should be in the future")
+	return nil
+}
+
+func TimesValidator(val interface{}) error {
+	in, ok := val.(string)
+
+	if !ok {
+		return errors.New("input must be a string")
+	}
+
+	arr := strings.Split(in, "\n")
+
+	for _, v := range arr {
+		err := TimeValidator(v)
+		if err != nil {
+			return err
+		}
+
 	}
 
 	return nil

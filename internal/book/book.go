@@ -23,6 +23,11 @@ type BookingDetails struct {
 	ReservationTypes []string
 }
 
+type VenueDetails struct {
+	Name           string
+	LeadTimeInDays int32
+}
+
 func (b BookingDetails) MarshalZerologObject(e *zerolog.Event) {
 	e.Str("reservation_times", strings.Join(b.ReservationTimes, ",")).
 		Str("reservation_types", strings.Join(b.ReservationTypes, ",")).
@@ -115,21 +120,26 @@ func WaitThenBook(bookingDetails *BookingDetails, dryRun bool, logger zerolog.Lo
 	}
 	duration := time.Until(*bookTime)
 	if duration.Minutes() > 5 {
-		err = fmt.Errorf("cannot wait more than 5 minutes to book - it is currently %f minutes before book time", duration.Minutes())
+		err = fmt.Errorf("cannot wait more than 5 minutes to book - it is currently %s before book time", duration.String())
 		logger.Error().Err(err).Msg("stopped waiting to book")
 		return err
 	}
 
 	if duration < 0 {
-		err = errors.New("book time has already passed")
-		logger.Error().Err(err).Msg("this can occur when your computer is asleep/turned off during book time")
-		return err
+		logger.Warn().Msg("book time has already passed - this can occur when your computer is asleep/turned off during book time")
 	}
 
 	logger.Info().Msgf("waiting %d seconds until booking time: %s", duration/time.Second, bookingDetails.BookingDateTime)
-	time.Sleep(duration + (time.Millisecond * 700))
+	time.Sleep(duration + (time.Millisecond * 200))
 
-	return Book(bookingDetails, dryRun, logger)
+	err = Book(bookingDetails, dryRun, logger)
+
+	if err != nil {
+		time.Sleep((time.Millisecond * 100))
+		logger.Info().Msg("retrying book job")
+		return Book(bookingDetails, dryRun, logger)
+	}
+	return nil
 }
 
 func findMatches(bookingDetails *BookingDetails, slots Slots) (matches Slots) {

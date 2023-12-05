@@ -1,4 +1,4 @@
-module github.com/lgrees/resy-cli
+module github.com/fanniva/resy-cli
 
 go 1.19
 

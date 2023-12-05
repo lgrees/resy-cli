@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/lgrees/resy-cli/internal/log"
+	"github.com/fanniva/resy-cli/internal/log"
 	"github.com/spf13/cobra"
 )
 

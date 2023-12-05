@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/lgrees/resy-cli/internal/utils/paths"
-	"github.com/lgrees/resy-cli/version"
+	"github.com/fanniva/resy-cli/internal/utils/paths"
+	"github.com/fanniva/resy-cli/version"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

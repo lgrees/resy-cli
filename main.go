@@ -1,6 +1,6 @@
 package main
 
-import "github.com/lgrees/resy-cli/cmd"
+import "github.com/fanniva/resy-cli/cmd"
 
 func main() {
 	cmd.Execute()

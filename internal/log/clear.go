@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/lgrees/resy-cli/internal/utils/paths"
+	"github.com/fanniva/resy-cli/internal/utils/paths"
 )
 
 func Clear() error {

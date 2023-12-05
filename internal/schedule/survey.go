@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/lgrees/resy-cli/internal/utils/surveyHelpers"
+	"github.com/fanniva/resy-cli/internal/utils/surveyHelpers"
 )
 
 type surveyVenue struct {

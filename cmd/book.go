@@ -6,8 +6,8 @@ import (
 	"path"
 	"time"
 
-	"github.com/lgrees/resy-cli/internal/book"
-	"github.com/lgrees/resy-cli/internal/utils/paths"
+	"github.com/fanniva/resy-cli/internal/book"
+	"github.com/fanniva/resy-cli/internal/utils/paths"
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 )

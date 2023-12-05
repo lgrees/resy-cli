@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/lgrees/resy-cli/internal/utils/date"
+	"github.com/fanniva/resy-cli/internal/utils/date"
 )
 
 func CreateRegexValidator(s, e string) survey.Validator {

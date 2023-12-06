@@ -26,7 +26,7 @@ changelog:
 brews:
   - name: resy
     description: A CLI to easily schedule restaurant reservations in advance.
-    homepage: https://github.com/lgrees/resy-cli
+    homepage: https://github.com/fanniva/resy-cli
     tap:
       owner: lgrees
       name: homebrew-lgrees

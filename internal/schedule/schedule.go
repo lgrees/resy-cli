@@ -3,9 +3,11 @@ package schedule
 import (
 	"fmt"
 	"os/exec"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/bcillie/resy-cli/internal/api"
 	"github.com/bcillie/resy-cli/internal/book"
 	"github.com/bcillie/resy-cli/internal/utils/date"
 )
@@ -20,7 +22,11 @@ func Add(s string) error {
 }
 
 func getBookingDateTime(inputs *surveyInputs) (*time.Time, error) {
-	res, err := book.FetchVenueDetails(inputs.Venue.Id)
+	venueId, err := strconv.Atoi(inputs.Venue.Id)
+	if err != nil {
+		return nil, err
+	}
+	res, err := api.GetConfig(int32(venueId))
 	if err != nil {
 		return nil, err
 	}

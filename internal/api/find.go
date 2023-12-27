@@ -4,11 +4,19 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/bcillie/resy-cli/internal/utils"
+	"github.com/bcillie/resy-cli/internal/utils/date"
 	"github.com/bcillie/resy-cli/internal/utils/http"
+	"github.com/rs/zerolog"
 )
+
+type FindParams struct {
+	VenueId   int32 `query:"venue_id"`
+	PartySize int32 `query:"party_size"`
+	// YYYY-MM-DD
+	ReservationDate date.ResyDate `query:"day"`
+}
 
 type Slot struct {
 	Date struct {
@@ -23,19 +31,23 @@ type Slot struct {
 
 type Slots []Slot
 
+func (s Slot) MarshalZerologObject(e *zerolog.Event) {
+	e.Str("reservation_time", s.Date.Start).
+		Str("reservation_type", s.Config.Type)
+}
+
+func (s Slots) MarshalZerologArray(a *zerolog.Array) {
+	for _, s := range s {
+		a.Object(s)
+	}
+}
+
 type FindResponse struct {
 	Results struct {
 		Venues []struct {
 			Slots Slots
 		}
 	}
-}
-
-type FindParams struct {
-	VenueId   int32 `query:"venue_id"`
-	PartySize int32 `query:"party_size"`
-	// YYYY-MM-DD
-	ReservationDate time.Time `query:"day" fmt:"2006-01-06"`
 }
 
 func Find(findParams *FindParams) (Slots, error) {

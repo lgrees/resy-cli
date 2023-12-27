@@ -4,9 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/bcillie/resy-cli/internal/api"
 	"github.com/bcillie/resy-cli/internal/utils/date"
 	"github.com/rs/zerolog"
 )
@@ -23,11 +25,6 @@ type BookingDetails struct {
 	ReservationTypes []string
 }
 
-type VenueDetails struct {
-	Name           string
-	LeadTimeInDays int32
-}
-
 func (b BookingDetails) MarshalZerologObject(e *zerolog.Event) {
 	e.Str("reservation_times", strings.Join(b.ReservationTimes, ",")).
 		Str("reservation_types", strings.Join(b.ReservationTypes, ",")).
@@ -35,30 +32,6 @@ func (b BookingDetails) MarshalZerologObject(e *zerolog.Event) {
 		Str("party_size", b.PartySize).
 		Str("venue_id", b.VenueId).
 		Str("booking_datetime", b.BookingDateTime)
-}
-
-type Slot struct {
-	Date struct {
-		Start string
-	}
-
-	Config struct {
-		Type  string
-		Token string
-	}
-}
-
-func (s Slot) MarshalZerologObject(e *zerolog.Event) {
-	e.Str("reservation_time", s.Date.Start).
-		Str("reservation_type", s.Config.Type)
-}
-
-type Slots []Slot
-
-func (s Slots) MarshalZerologArray(a *zerolog.Array) {
-	for _, s := range s {
-		a.Object(s)
-	}
 }
 
 type BookingConfig struct {
@@ -82,7 +55,20 @@ func ToBookCmd(bookingDetails *BookingDetails, dryRun bool) string {
 }
 
 func Book(bookingDetails *BookingDetails, dryRun bool, logger zerolog.Logger) error {
-	slots, err := fetchSlots(bookingDetails)
+	venueId, err := strconv.Atoi(bookingDetails.VenueId)
+	if err != nil {
+		return err
+	}
+	partySize, err := strconv.Atoi(bookingDetails.PartySize)
+	if err != nil {
+		return err
+	}
+	resDate, err := time.Parse(time.DateOnly, bookingDetails.ReservationDate)
+	if err != nil {
+		return err
+	}
+	findParams := api.FindParams{VenueId: int32(venueId), PartySize: int32(partySize), ReservationDate: *date.NewResyDate(resDate, time.DateOnly)}
+	slots, err := api.Find(&findParams)
 	if err != nil {
 		logger.Error().Err(err).Msg("failed to fetch slots")
 		return err
@@ -142,7 +128,7 @@ func WaitThenBook(bookingDetails *BookingDetails, dryRun bool, logger zerolog.Lo
 	return nil
 }
 
-func findMatches(bookingDetails *BookingDetails, slots Slots) (matches Slots) {
+func findMatches(bookingDetails *BookingDetails, slots api.Slots) (matches api.Slots) {
 	for _, slot := range slots {
 		if isSlotMatch(bookingDetails, slot) {
 			matches = append(matches, slot)
@@ -151,7 +137,7 @@ func findMatches(bookingDetails *BookingDetails, slots Slots) (matches Slots) {
 	return
 }
 
-func book(bookingDetails *BookingDetails, matchingSlots Slots, logger zerolog.Logger) error {
+func book(bookingDetails *BookingDetails, matchingSlots api.Slots, logger zerolog.Logger) error {
 	for _, slot := range matchingSlots {
 		logger.Info().Object("slot", slot).Msg("attempting to book slot")
 		err := bookSlot(bookingDetails, slot)
@@ -164,7 +150,7 @@ func book(bookingDetails *BookingDetails, matchingSlots Slots, logger zerolog.Lo
 	return errors.New("could not book any matching slots")
 }
 
-func isSlotMatch(bookingDetails *BookingDetails, slot Slot) bool {
+func isSlotMatch(bookingDetails *BookingDetails, slot api.Slot) bool {
 	pieces := strings.Split(slot.Date.Start, " ")
 	slotTime := pieces[1]
 	slotType := strings.ToLower(slot.Config.Type)

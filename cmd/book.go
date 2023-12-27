@@ -6,6 +6,7 @@ import (
 	"path"
 	"time"
 
+	"github.com/bcillie/resy-cli/internal/api"
 	"github.com/bcillie/resy-cli/internal/book"
 	"github.com/bcillie/resy-cli/internal/utils/paths"
 	"github.com/rs/zerolog"
@@ -22,7 +23,7 @@ var bookCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		flags := cmd.Flags()
 
-		venueId, _ := flags.GetString("venueId")
+		venueId, _ := flags.GetInt32("venueId")
 		partySize, _ := flags.GetString("partySize")
 		reservationDate, _ := flags.GetString("reservationDate")
 		bookingDateTime, _ := flags.GetString("bookingDateTime")
@@ -31,7 +32,7 @@ var bookCmd = &cobra.Command{
 		dryRun, _ := flags.GetBool("dryRun")
 
 		bookingDetails := &book.BookingDetails{
-			VenueId:          venueId,
+			VenueId:          string(venueId),
 			PartySize:        partySize,
 			BookingDateTime:  bookingDateTime,
 			ReservationDate:  reservationDate,
@@ -44,7 +45,7 @@ var bookCmd = &cobra.Command{
 			return err
 		}
 
-		venueDetails, _ := book.FetchVenueDetails(venueId)
+		venueDetails, _ := api.GetConfig(venueId)
 		formattedTime := time.Now().Format("Mon Jan _2 15:04:05 2006")
 
 		logFileName := path.Join(p.LogPath, fmt.Sprintf("%s_%s.log", venueDetails.Name, formattedTime))

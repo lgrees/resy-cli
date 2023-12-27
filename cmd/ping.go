@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/bcillie/resy-cli/internal/ping"
+	"github.com/bcillie/resy-cli/internal/api"
 	"github.com/spf13/cobra"
 )
 
@@ -10,7 +10,7 @@ var pingCmd = &cobra.Command{
 	Short: "Ping the resy API",
 	Long:  `Ping the resy API to verify that the correct credentials are stored.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		ping.Ping()
+		api.Ping()
 	},
 }
 

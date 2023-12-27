@@ -1,4 +1,4 @@
-package ping
+package api
 
 import (
 	"encoding/json"
@@ -14,12 +14,14 @@ type Response struct {
 func Ping() {
 	body, statusCode, err := http.Get("https://api.resy.com/2/user", &http.Req{})
 
+	var jsonObj Response
+	json.Unmarshal(body, &jsonObj)
+	fmt.Println(jsonObj.Message)
+
 	if err != nil {
 		fmt.Printf("Error: could not ping the auth server: %s\n", err)
 	} else if statusCode >= 400 {
 		fmt.Println("Error: Could not authenticate with resy.")
-		var jsonObj Response
-		json.Unmarshal(body, &jsonObj)
 
 		fmt.Printf("Status Code: %d\n", statusCode)
 		if jsonObj.Message != "" {

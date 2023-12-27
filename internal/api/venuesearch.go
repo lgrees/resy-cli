@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/bcillie/resy-cli/internal/utils/http"
 )
@@ -52,6 +53,16 @@ func NewSearchResult(hit SearchHit) *SearchResult {
 		Cuisine:  hit.Cuisine,
 		Id:       hit.Id.Resy,
 	}
+}
+
+func (result *SearchResult) String() string {
+	return strings.Join([]string{
+		result.Name,
+		strings.Join(result.Cuisine, ", "),
+		result.Location,
+		fmt.Sprintf("%.2f stars", result.Rating),
+		fmt.Sprintf("ID: %d", result.Id),
+	}, " | ")
 }
 
 func SearchVenues(query string) (*[]SearchResult, error) {

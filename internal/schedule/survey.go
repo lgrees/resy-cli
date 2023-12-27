@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/bcillie/resy-cli/internal/api"
 	"github.com/bcillie/resy-cli/internal/utils/surveyHelpers"
 )
 
@@ -37,25 +38,15 @@ func (venue *surveyVenue) WriteAnswer(name string, value interface{}) error {
 	return nil
 }
 
-func (venue *surveyVenue) ToString() string {
-	return strings.Join([]string{
-		venue.Name,
-		venue.Cuisine,
-		venue.Location,
-		venue.Rating,
-		venue.Id,
-	}, " | ")
-}
-
 func suggestVenues(toComplete string) []string {
-	venues, err := searchVenues(toComplete)
+	venues, err := api.SearchVenues(toComplete)
 	if err != nil {
 		fmt.Println(err)
 		return []string{}
 	}
 	ret := make([]string, 0)
 	for _, v := range *venues {
-		ret = append(ret, v.ToString())
+		ret = append(ret, v.String())
 	}
 
 	return ret

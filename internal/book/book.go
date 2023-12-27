@@ -140,10 +140,18 @@ func findMatches(bookingDetails *BookingDetails, slots api.Slots) (matches api.S
 func book(bookingDetails *BookingDetails, matchingSlots api.Slots, logger zerolog.Logger) error {
 	for _, slot := range matchingSlots {
 		logger.Info().Object("slot", slot).Msg("attempting to book slot")
-		err := BookSlot(bookingDetails, slot)
+		partySize, _ := strconv.Atoi(bookingDetails.PartySize)
+		dp := api.DetailsParams{ConfigId: slot.Config.Token, Day: *date.NewResyDate(bookingDetails.BookingDateTime, time.DateOnly), PartySize: int64(partySize)}
+		dr, err := api.GetDetails(&dp)
+		if err != nil {
+			fmt.Println(err.Error())
+			return err
+		}
+		err = api.Book(dr)
 		if err == nil {
 			return nil
 		}
+
 		logger.Warn().Err(err).Object("slot", slot).Msg("booking slot failed")
 	}
 

@@ -14,7 +14,7 @@ type surveyVenue struct {
 	Location string
 	Rating   string
 	Cuisine  string
-	Id       string
+	Id       int
 }
 
 type surveyInputs struct {
@@ -34,7 +34,7 @@ func (venue *surveyVenue) WriteAnswer(name string, value interface{}) error {
 		return nil
 	}
 	venue.Name = arr[0]
-	venue.Id = arr[4]
+	fmt.Sscanf(arr[4], "ID: %d", &venue.Id)
 	return nil
 }
 

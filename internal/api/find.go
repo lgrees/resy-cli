@@ -61,6 +61,9 @@ func Find(findParams *FindParams) (Slots, error) {
 	if err != nil {
 		return nil, err
 	}
+	// body := make([]byte, 0)
+	// statusCode := 400
+	// var err error = nil
 	if statusCode != 200 {
 		return nil, fmt.Errorf("failed to fetch slots for date, status code: %d", statusCode)
 	}

@@ -14,15 +14,15 @@ func main() {
 	// fmt.Println("%s", sv)
 
 	// t, _ := (time.Parse(time.RFC822, "12 Jan 24 18:00 EDT"))
-	// rd := *date.NewResyDate(t, time.DateOnly)
-	// f, err := api.Find(&api.FindParams{VenueId: 1010, PartySize: 2, ReservationDate: rd})
+	// rd, _ := date.NewResyDate(t, time.DateOnly)
+	// _, err := api.Find(&api.FindParams{VenueId: 1010, PartySize: 3, ReservationDate: *rd})
 	// if err != nil {
 	// 	fmt.Println(err.Error())
 	// 	return
 	// }
 
-	// dp := api.DetailsParams{ConfigId: f[0].Config.Token, Day: rd, PartySize: 2}
-	// dr, err := api.GetDetails(&dp)
+	// dp := api.DetailsParams{ConfigId: f[0].Config.Token, Day: *rd, PartySize: 2}
+	// _, err = api.GetDetails(&dp)
 	// if err != nil {
 	// 	fmt.Println(err.Error())
 	// 	return

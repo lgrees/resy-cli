@@ -16,7 +16,6 @@ func Ping() {
 
 	var jsonObj Response
 	json.Unmarshal(body, &jsonObj)
-	fmt.Println(jsonObj.Message)
 
 	if err != nil {
 		fmt.Printf("Error: could not ping the auth server: %s\n", err)

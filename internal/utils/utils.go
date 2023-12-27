@@ -33,7 +33,6 @@ func GetQueryParams(t interface{}) map[string]string {
 		case string:
 			params[prop] = v
 		}
-		fmt.Printf("%s: %s\n", prop, params[prop])
 	}
 
 	return params

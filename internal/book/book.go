@@ -63,11 +63,15 @@ func Book(bookingDetails *BookingDetails, dryRun bool, logger zerolog.Logger) er
 	if err != nil {
 		return err
 	}
-	resDate, err := time.Parse(time.DateOnly, bookingDetails.ReservationDate)
+	resDate, err := date.NewResyDate(bookingDetails.ReservationDate, time.DateOnly)
 	if err != nil {
 		return err
 	}
-	findParams := api.FindParams{VenueId: int32(venueId), PartySize: int32(partySize), ReservationDate: *date.NewResyDate(resDate, time.DateOnly)}
+	findParams := api.FindParams{
+		VenueId:         int32(venueId),
+		PartySize:       int32(partySize),
+		ReservationDate: *resDate,
+	}
 	slots, err := api.Find(&findParams)
 	if err != nil {
 		logger.Error().Err(err).Msg("failed to fetch slots")
@@ -140,8 +144,21 @@ func findMatches(bookingDetails *BookingDetails, slots api.Slots) (matches api.S
 func book(bookingDetails *BookingDetails, matchingSlots api.Slots, logger zerolog.Logger) error {
 	for _, slot := range matchingSlots {
 		logger.Info().Object("slot", slot).Msg("attempting to book slot")
-		partySize, _ := strconv.Atoi(bookingDetails.PartySize)
-		dp := api.DetailsParams{ConfigId: slot.Config.Token, Day: *date.NewResyDate(bookingDetails.BookingDateTime, time.DateOnly), PartySize: int64(partySize)}
+
+		partySize, err := strconv.Atoi(bookingDetails.PartySize)
+		if err != nil {
+			return err
+		}
+
+		resDate, err := date.NewResyDate(bookingDetails.BookingDateTime, time.DateOnly)
+		if err != nil {
+			return err
+		}
+		dp := api.DetailsParams{
+			ConfigId:  slot.Config.Token,
+			Day:       *resDate,
+			PartySize: int64(partySize),
+		}
 		dr, err := api.GetDetails(&dp)
 		if err != nil {
 			fmt.Println(err.Error())

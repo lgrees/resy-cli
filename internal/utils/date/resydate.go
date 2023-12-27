@@ -2,28 +2,35 @@ package date
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
+)
+
+const (
+	AtFmt = "15:04 02.01.2006"
 )
 
 type ResyDate struct {
 	time.Time
-	Format string
+	FormatStr string
 }
 
-func NewResyDate(any interface{}, format string) *ResyDate {
+func NewResyDate(any interface{}, format string) (*ResyDate, error) {
 	var t time.Time
 	switch p := any.(type) {
 	case time.Time:
 		t = p
 	case string:
-		t, _ = time.Parse(time.DateOnly, p)
+		strT, err := time.Parse(format, p)
+		if err != nil {
+			return nil, err
+		}
+		t = strT
 	}
-	return &ResyDate{Time: t, Format: format}
+	return &ResyDate{Time: t, FormatStr: format}, nil
 }
 
 func (d *ResyDate) UnmarshalJSON(b []byte) error {
-	date, err := time.Parse(d.Format, string(b))
+	date, err := time.Parse(d.FormatStr, string(b))
 	if err != nil {
 		return err
 	}
@@ -32,10 +39,9 @@ func (d *ResyDate) UnmarshalJSON(b []byte) error {
 }
 
 func (d *ResyDate) MarshalJSON() ([]byte, error) {
-	fmt.Println(d.String())
 	return json.Marshal(d.String())
 }
 
 func (d *ResyDate) String() string {
-	return d.Time.Format(d.Format)
+	return d.Time.Format(d.FormatStr)
 }

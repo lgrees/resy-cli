@@ -45,7 +45,6 @@ func template(method string, contentType string) func(string, *Req) ([]byte, int
 				query.Add(key, val)
 			}
 			req.URL.RawQuery = query.Encode()
-			println(query.Encode())
 		}
 
 		res, err := client.Do(req)

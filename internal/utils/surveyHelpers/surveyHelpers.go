@@ -31,7 +31,7 @@ func DateValidator(val interface{}) error {
 		return errors.New("input must be a string")
 	}
 
-	t, err := date.ParseDate(str)
+	t, err := date.NewResyDate(str, time.DateOnly)
 	if err != nil {
 		return errors.New("input must be a valid date (YYYY-MM-DD)")
 	}

@@ -15,18 +15,28 @@ import (
 
 func bookSlot(bookingDetails *BookingDetails, slot api.Slot) error {
 	// Get booking token
-	partySize, _ := strconv.Atoi(bookingDetails.PartySize)
+	partySize, err := strconv.Atoi(bookingDetails.PartySize)
+	if err != nil {
+		return err
+	}
+
+	resDate, err := date.NewResyDate(bookingDetails.ReservationDate, time.DateOnly)
+	if err != nil {
+		return err
+	}
+
 	detailsParams := api.DetailsParams{
 		ConfigId:  slot.Config.Token,
-		Day:       *date.NewResyDate(bookingDetails.ReservationDate, time.DateOnly),
+		Day:       *resDate,
 		PartySize: int64(partySize),
 	}
+
 	details, err := api.GetDetails(&detailsParams)
 	if err != nil {
 		return err
 	}
 
-	// Actually book with token
+	// book with token
 	token := fmt.Sprintf("book_token=%s", url.PathEscape(details.BookToken.Value))
 	var paymentDetails string
 	if details.User.PaymentMethods != nil {

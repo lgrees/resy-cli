@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lgrees/resy-cli/internal/utils"
-	"github.com/lgrees/resy-cli/internal/utils/http"
+	"github.com/bcillie/resy-cli/internal/utils"
+	"github.com/bcillie/resy-cli/internal/utils/http"
 )
 
 type Slot struct {

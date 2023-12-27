@@ -62,7 +62,7 @@ While it's unnecessary to have an understanding of how `at` works in order to us
 To install `resy-cli`, run the following command from your terminal emulator:
 
 ```
-brew install lgrees/lgrees/resy
+brew install bcillie/bcillie/resy
 ```
 
 If the install succeeded, you should see a success message in your terminal.

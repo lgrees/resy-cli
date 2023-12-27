@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/lgrees/resy-cli/internal/utils/http"
+	"github.com/bcillie/resy-cli/internal/utils/http"
 )
 
 type searchRequest struct {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/lgrees/resy-cli/internal/utils/http"
+	"github.com/bcillie/resy-cli/internal/utils/http"
 )
 
 const SearchUrl = "https://api.resy.com/3/venuesearch/search"

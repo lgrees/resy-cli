@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lgrees/resy-cli/cmd"
-	"github.com/lgrees/resy-cli/internal/api"
-	"github.com/lgrees/resy-cli/internal/utils"
+	"github.com/bcillie/resy-cli/cmd"
+	"github.com/bcillie/resy-cli/internal/api"
+	"github.com/bcillie/resy-cli/internal/utils"
 )
 
 type TestS struct {

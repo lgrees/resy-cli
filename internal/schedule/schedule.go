@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lgrees/resy-cli/internal/book"
-	"github.com/lgrees/resy-cli/internal/utils/date"
+	"github.com/bcillie/resy-cli/internal/book"
+	"github.com/bcillie/resy-cli/internal/utils/date"
 )
 
 func Add(s string) error {

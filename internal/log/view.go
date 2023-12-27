@@ -7,7 +7,7 @@ import (
 	"path"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/lgrees/resy-cli/internal/utils/paths"
+	"github.com/bcillie/resy-cli/internal/utils/paths"
 )
 
 func View() error {

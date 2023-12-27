@@ -2,6 +2,8 @@ package date
 
 import (
 	"encoding/json"
+	"fmt"
+	"reflect"
 	"time"
 )
 
@@ -15,18 +17,18 @@ type ResyDate struct {
 }
 
 func NewResyDate(any interface{}, format string) (*ResyDate, error) {
-	var t time.Time
 	switch p := any.(type) {
-	case time.Time:
-		t = p
 	case string:
-		strT, err := time.Parse(format, p)
+		t, err := time.Parse(format, p)
 		if err != nil {
 			return nil, err
 		}
-		t = strT
+		return NewResyDate(t, format)
+	case time.Time:
+		return &ResyDate{Time: p, FormatStr: format}, nil
+	default:
+		return nil, fmt.Errorf("unsupported type: %s", reflect.TypeOf(any))
 	}
-	return &ResyDate{Time: t, FormatStr: format}, nil
 }
 
 func (d *ResyDate) UnmarshalJSON(b []byte) error {

@@ -25,10 +25,10 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
+	cobra.OnInitialize(InitConfig)
 }
 
-func initConfig() {
+func InitConfig() {
 	p, err := paths.GetAppPaths()
 	cobra.CheckErr(err)
 

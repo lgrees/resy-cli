@@ -45,6 +45,7 @@ func template(method string, contentType string) func(string, *Req) ([]byte, int
 				query.Add(key, val)
 			}
 			req.URL.RawQuery = query.Encode()
+			println(query.Encode())
 		}
 
 		res, err := client.Do(req)
@@ -77,4 +78,7 @@ func PostForm(url string, p *Req) ([]byte, int, error) {
 
 func Get(url string, p *Req) ([]byte, int, error) {
 	return template(http.MethodGet, "")(url, p)
+}
+func GetJson(url string, p *Req) ([]byte, int, error) {
+	return template(http.MethodGet, "application/json")(url, p)
 }

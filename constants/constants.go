@@ -1,7 +1,7 @@
 package constants
 
 const (
-	AppDirName     = ".resy-cli"
+	AppDirName     = "resy-cli"
 	AppAuthCfgFile = "resy-cli-auth-config.yml"
 	AppLogDir      = "logs"
 )

@@ -1,6 +1,8 @@
 package date
 
 import (
+	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -30,7 +32,8 @@ func (d *ResyDate) UnmarshalJSON(b []byte) error {
 }
 
 func (d *ResyDate) MarshalJSON() ([]byte, error) {
-	return []byte(d.String()), nil
+	fmt.Println(d.String())
+	return json.Marshal(d.String())
 }
 
 func (d *ResyDate) String() string {

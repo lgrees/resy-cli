@@ -140,7 +140,7 @@ func findMatches(bookingDetails *BookingDetails, slots api.Slots) (matches api.S
 func book(bookingDetails *BookingDetails, matchingSlots api.Slots, logger zerolog.Logger) error {
 	for _, slot := range matchingSlots {
 		logger.Info().Object("slot", slot).Msg("attempting to book slot")
-		err := bookSlot(bookingDetails, slot)
+		err := BookSlot(bookingDetails, slot)
 		if err == nil {
 			return nil
 		}

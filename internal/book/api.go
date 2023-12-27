@@ -13,7 +13,7 @@ import (
 	"github.com/bcillie/resy-cli/internal/utils/http"
 )
 
-func bookSlot(bookingDetails *BookingDetails, slot api.Slot) error {
+func BookSlot(bookingDetails *BookingDetails, slot api.Slot) error {
 	// Get booking token
 	partySize, _ := strconv.Atoi(bookingDetails.PartySize)
 	detailsParams := api.DetailsParams{

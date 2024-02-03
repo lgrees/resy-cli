@@ -33,9 +33,9 @@ After too many instances of losing to people who could click faster than me (or 
 
 ### Terminal Familiarity <!-- omit in toc -->
 
-`resy-cli` is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface), and resultingly requires some familiarity with a [terminal emulator]().
+`resy-cli` is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface), and resultingly requires some familiarity with a [terminal emulator](https://en.wikipedia.org/wiki/Terminal_emulator).
 
-If you are using a Mac computer, this [quick introduction]() to using the MacOS default terminal emulator (Terminal) should give you a good foundation to set up `resy-cli` on your computer.
+If you are using a Mac computer, there are plenty of resources online to help get you started with the MacOS default terminal emulator (Terminal). This should give you a good foundation to set up `resy-cli` on your computer.
 
 ### Homebrew Installation <!-- omit in toc -->
 

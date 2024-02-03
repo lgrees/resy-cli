@@ -168,10 +168,7 @@ func isSlotMatch(bookingDetails *BookingDetails, slot Slot) bool {
 	pieces := strings.Split(slot.Date.Start, " ")
 	slotTime := pieces[1]
 	slotType := strings.ToLower(slot.Config.Type)
-	isTypeMatch := false
-	if len(bookingDetails.ReservationTypes) == 0 {
-		isTypeMatch = true
-	}
+	isTypeMatch := len(bookingDetails.ReservationTypes) == 0
 	isTimeMatch := false
 
 	for _, time := range bookingDetails.ReservationTimes {
@@ -181,7 +178,7 @@ func isSlotMatch(bookingDetails *BookingDetails, slot Slot) bool {
 		}
 	}
 	for _, resType := range bookingDetails.ReservationTypes {
-		if resType == slotType {
+		if strings.ToLower(resType) == slotType {
 			isTypeMatch = true
 			break
 		}
